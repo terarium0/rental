@@ -1,45 +1,82 @@
 <?php
-include '../functions.php';
-require_role('admin');
+session_start();
+include '../db.php';
 
-if (isset($_GET['delete'])) {
-  $id = (int)$_GET['delete'];
-  $res = db_execute($conn, "DELETE FROM mobil WHERE id = ?", "i", [$id]);
-  $msg = $res['ok'] ? "Mobil dihapus." : "Error: ".$res['error'];
+// pastikan hanya admin yang bisa mengakses
+if ($_SESSION['role'] != 'admin') {
+    header('Location: ../index.php');
+    exit;
 }
 
-if (isset($_GET['setstatus'])) {
-  $id = (int)$_GET['id'];
-  $status = $_GET['status'] === 'tersedia' ? 'tersedia' : 'disewa';
-  $res = db_execute($conn, "UPDATE mobil SET status = ? WHERE id = ?", "si", [$status, $id]);
-  $msg = $res['ok'] ? "Status diperbarui." : "Error: ".$res['error'];
-}
-
-$mobils = db_query($conn, "SELECT m.*, u.nama as pemilik FROM mobil m LEFT JOIN users u ON m.id_perental = u.id ORDER BY m.id DESC");
+// ambil semua data mobil dan join dengan perental
+$query = "
+    SELECT m.*, u.nama AS nama_perental 
+    FROM mobil m 
+    JOIN users u ON m.id_perental = u.id
+";
+$result = mysqli_query($conn, $query);
 ?>
+
 <!DOCTYPE html>
-<html><head><title>Data Mobil</title></head><body>
-<h2>Data Mobil</h2>
-<?php if(isset($msg)) echo "<p>$msg</p>"; ?>
-<table border="1" cellpadding="6">
-<tr><th>ID</th><th>Nama</th><th>Harga</th><th>Pemilik</th><th>Status</th><th>Aksi</th></tr>
-<?php foreach($mobils as $m): ?>
-<tr>
-  <td><?= $m['id'] ?></td>
-  <td><?= htmlspecialchars($m['nama_mobil']) ?></td>
-  <td><?= number_format($m['harga_sewa']) ?></td>
-  <td><?= htmlspecialchars($m['pemilik']) ?></td>
-  <td><?= $m['status'] ?></td>
-  <td>
-    <a href="?delete=<?= $m['id'] ?>" onclick="return confirm('Hapus mobil?')">Hapus</a> |
-    <?php if($m['status']=='tersedia'): ?>
-      <a href="?setstatus=1&id=<?= $m['id'] ?>&status=disewa">Set Disewa</a>
-    <?php else: ?>
-      <a href="?setstatus=1&id=<?= $m['id'] ?>&status=tersedia">Set Tersedia</a>
-    <?php endif; ?>
-  </td>
-</tr>
-<?php endforeach; ?>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Data Mobil - Admin</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; }
+    .nav { background: #333; color: white; padding: 10px; }
+    .nav a { color: white; text-decoration: none; margin-right: 10px; }
+    .table { background: white; border-collapse: collapse; width: 95%; margin: 20px auto; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background: #333; color: white; }
+    .tersedia { color: green; font-weight: bold; }
+    .tidak { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <a href="dashboard.php">🏠 Dashboard Admin</a>
+  <a href="data_mobil.php">🚗 Data Mobil</a>
+  <a href="data_user.php">👥 Data User</a>
+  <a href="../logout.php">🚪 Logout</a>
+</div>
+
+<h2 style="margin-left:50px;">Data Semua Mobil</h2>
+
+<table class="table">
+  <tr>
+    <th>No</th>
+    <th>Nama Mobil</th>
+    <th>Harga Sewa</th>
+    <th>Perental</th>
+    <th>Gambar</th>
+    <th>Status</th>
+  </tr>
+
+  <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
+  <tr>
+    <td><?= $no++ ?></td>
+    <td><?= htmlspecialchars($row['nama_mobil']) ?></td>
+    <td>Rp<?= number_format($row['harga_sewa'], 0, ',', '.') ?>/hari</td>
+    <td><?= htmlspecialchars($row['nama_perental']) ?></td>
+    <td>
+      <?php if ($row['gambar']): ?>
+        <img src="../uploads/<?= $row['gambar'] ?>" width="100">
+      <?php else: ?>
+        (Tidak ada gambar)
+      <?php endif; ?>
+    </td>
+    <td>
+      <?php if ($row['status'] == 'tersedia'): ?>
+        <span class="tersedia">Tersedia</span>
+      <?php else: ?>
+        <span class="tidak">Tidak Tersedia</span>
+      <?php endif; ?>
+    </td>
+  </tr>
+  <?php endwhile; ?>
 </table>
-<p><a href="dashboard.php">Kembali</a> | <a href="../logout.php">Logout</a></p>
-</body></html>
+
+</body>
+</html>
