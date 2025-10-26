@@ -25,7 +25,7 @@ if (isset($_POST['register'])) {
     <input type="text" name="nama" placeholder="Nama Lengkap" required><br>
     <input type="text" name="username" placeholder="Username" required><br>
     <input type="password" name="password" placeholder="Password" required><br>
-    <input type="text" name="telepon" placeholder="Nomor Telepon (jaminan)" required pattern="[0-9]{10,15}"><br>
+    <input type="text" name="telepon" placeholder="Contoh: 628xxxxxxx" required pattern="[0-9]{10,15}"><br>
     <select name="role" required>
       <option value="">-- Pilih Role --</option>
       <option value="penyewa">Penyewa</option>

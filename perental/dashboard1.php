@@ -10,35 +10,35 @@ if ($_SESSION['role'] != 'perental') {
 
 $id_perental = $_SESSION['id_user'];
 
-// === Fungsi ubah status barang ===
+// === Fungsi ubah status mobil ===
 if (isset($_GET['ubah_status'])) {
-    $id_barang = $_GET['ubah_status'];
+    $id_mobil = $_GET['ubah_status'];
     $status_baru = $_GET['status'];
 
-    $query = "UPDATE barang SET status = '$status_baru' WHERE id = '$id_barang' AND id_perental = '$id_perental'";
+    $query = "UPDATE mobil SET status = '$status_baru' WHERE id = '$id_mobil' AND id_perental = '$id_perental'";
     mysqli_query($conn, $query);
 
-    echo "<script>alert('Status barang berhasil diubah!');window.location='dashboard.php';</script>";
+    echo "<script>alert('Status mobil berhasil diubah!');window.location='dashboard.php';</script>";
     exit;
 }
 
-// === Fungsi hapus barang ===
+// === Fungsi hapus mobil ===
 if (isset($_GET['hapus'])) {
-    $id_barang = $_GET['hapus'];
+    $id_mobil = $_GET['hapus'];
 
     // hapus gambar jika ada
-    $gambar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT foto FROM barang WHERE id='$id_barang' AND id_perental='$id_perental'"));
-    if ($gambar && $gambar['gambar'] && file_exists("../uploads/" . $gambar['foto'])) {
+    $gambar = mysqli_fetch_assoc(mysqli_query($conn, "SELECT gambar FROM mobil WHERE id='$id_mobil' AND id_perental='$id_perental'"));
+    if ($gambar && $gambar['gambar'] && file_exists("../uploads/" . $gambar['gambar'])) {
         unlink("../uploads/" . $gambar['gambar']);
     }
 
-    mysqli_query($conn, "DELETE FROM barang WHERE id='$id_barang' AND id_perental='$id_perental'");
-    echo "<script>alert('barang berhasil dihapus!');window.location='dashboard.php';</script>";
+    mysqli_query($conn, "DELETE FROM mobil WHERE id='$id_mobil' AND id_perental='$id_perental'");
+    echo "<script>alert('Mobil berhasil dihapus!');window.location='dashboard.php';</script>";
     exit;
 }
 
-// Ambil data barang milik perental
-$result = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id_perental'");
+// Ambil data mobil milik perental
+$result = mysqli_query($conn, "SELECT * FROM mobil WHERE id_perental='$id_perental'");
 ?>
 
 <!DOCTYPE html>
@@ -64,18 +64,16 @@ $result = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id_peren
 
 <div class="nav">
   <a href="dashboard.php">🏠 Dashboard</a>
-  <a href="tambah_barang.php">➕ Tambah barang</a>
+  <a href="tambah_mobil.php">➕ Tambah Mobil</a>
   <a href="../logout.php">🚪 Logout</a>
 </div>
 
-<h2 style="margin-left:50px;">Daftar barang Saya</h2>
+<h2 style="margin-left:50px;">Daftar Mobil Saya</h2>
 
 <table class="table">
   <tr>
     <th>No</th>
-    <th>Nama barang</th>
-    <th>Deskripsi</th>
-    <th>kategori</th>
+    <th>Nama Mobil</th>
     <th>Harga Sewa</th>
     <th>Gambar</th>
     <th>Status</th>
@@ -85,13 +83,11 @@ $result = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id_peren
   <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
   <tr>
     <td><?= $no++ ?></td>
-    <td><?= htmlspecialchars($row['nama_barang']) ?></td>
-    <td><?= htmlspecialchars($row['deskripsi']) ?></td>
-    <td><?= htmlspecialchars($row['kategori']) ?></td>
+    <td><?= htmlspecialchars($row['nama_mobil']) ?></td>
     <td>Rp<?= number_format($row['harga_sewa'], 0, ',', '.') ?>/hari</td>
     <td>
-      <?php if ($row['foto']): ?>
-        <img src="../uploads/<?= $row['foto'] ?>" width="100">
+      <?php if ($row['gambar']): ?>
+        <img src="../uploads/<?= $row['gambar'] ?>" width="100">
       <?php else: ?>
         (Tidak ada gambar)
       <?php endif; ?>
@@ -112,8 +108,8 @@ $result = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id_peren
       <?php endif; ?>
 
       <!-- Tombol edit & hapus -->
-      <a class="btn edit" href="edit_barang.php?id=<?= $row['id'] ?>">Edit</a>
-      <a class="btn hapus" href="?hapus=<?= $row['id'] ?>" onclick="return confirm('Yakin ingin menghapus barang ini?')">Hapus</a>
+      <a class="btn edit" href="edit_mobil.php?id=<?= $row['id'] ?>">Edit</a>
+      <a class="btn hapus" href="?hapus=<?= $row['id'] ?>" onclick="return confirm('Yakin ingin menghapus mobil ini?')">Hapus</a>
     </td>
   </tr>
   <?php endwhile; ?>
