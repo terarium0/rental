@@ -6,10 +6,10 @@ if ($_SESSION['role'] != 'penyewa') {
   exit;
 }
 
-$id_mobil = $_GET['id'];
+$id_barang = $_GET['id'];
 $id_penyewa = $_SESSION['id_user'];
-$query = mysqli_query($conn, "SELECT * FROM mobil WHERE id='$id_mobil'");
-$mobil = mysqli_fetch_assoc($query);
+$query = mysqli_query($conn, "SELECT * FROM barang WHERE id='$id_barang'");
+$barang = mysqli_fetch_assoc($query);
 
 if (isset($_POST['pesan'])) {
   $id_penyewa = $_SESSION['id_user'];
@@ -20,22 +20,22 @@ if (isset($_POST['pesan'])) {
   if ($selisih <= 0) {
     echo "<script>alert('Tanggal tidak valid!');</script>";
   } else {
-    $total = $selisih * $mobil['harga_sewa'];
-    mysqli_query($conn, "INSERT INTO transaksi (id_mobil, id_penyewa, tanggal_mulai, tanggal_selesai, total_harga)
-                         VALUES ('$id_mobil', '$id_penyewa', '$tgl_mulai', '$tgl_selesai', '$total')");
-    echo "<script>alert('Transaksi berhasil dibuat, menunggu konfirmasi perental.');window.location='transaksi_penyewa.php';</script>";
+    $total = $selisih * $barang['harga_sewa'];
+    mysqli_query($conn, "INSERT INTO sewa (id_barang, id_penyewa, tanggal_mulai, tanggal_selesai, total_harga)
+                         VALUES ('$id_barang', '$id_penyewa', '$tgl_mulai', '$tgl_selesai', '$total')");
+    echo "<script>alert('sewa berhasil dibuat, menunggu konfirmasi perental.');window.location='../penyewa/dashboard.php';</script>";
   }
 }
 ?>
 <!DOCTYPE html>
 <html>
-<head><title>Pesan Mobil</title></head>
+<head><title>Pesan barang</title></head>
 <body>
-  <h2>Pesan Mobil: <?= htmlspecialchars($mobil['nama_mobil']) ?></h2>
+  <h2>Pesan barang: <?= htmlspecialchars($barang['nama_barang']) ?></h2>
   <form method="post">
-    <h2>Catat Transaksi</h2>
-    <p>Mobil: <strong><?= $mobil['nama_mobil'] ?></strong></p>
-    <p>Harga: Rp<?= number_format($mobil['harga_sewa'],0,',','.') ?>/hari</p>
+    <h2>Catat sewa</h2>
+    <p>barang: <strong><?= $barang['nama_barang'] ?></strong></p>
+    <p>Harga: Rp<?= number_format($barang['harga_sewa'],0,',','.') ?>/hari</p>
     <label>Tanggal Mulai:</label><br>
     <input type="date" name="tgl_mulai" required><br>
     <label>Tanggal Selesai:</label><br>

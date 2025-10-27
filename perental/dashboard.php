@@ -65,6 +65,7 @@ $result = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id_peren
 <div class="nav">
   <a href="dashboard.php">🏠 Dashboard</a>
   <a href="tambah_barang.php">➕ Tambah barang</a>
+  <a href="../transaksi/transaksi_perental.php">Sewa</a>
   <a href="../logout.php">🚪 Logout</a>
 </div>
 
