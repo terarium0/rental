@@ -6,110 +6,246 @@ if ($_SESSION['role'] != 'penyewa') {
   exit;
 }
 
-$result = mysqli_query($conn, "
-  SELECT b.*, u.username AS pemilik, u.telepon
-  FROM barang b
-  JOIN users u ON b.id_perental = u.id
-  WHERE b.status = 'tersedia'
-");
-
+// Ambil data dari tabel barang (ubah nama tabel sesuai kebutuhan)
+$query = mysqli_query($conn, "SELECT * FROM barang ORDER BY id DESC");
 ?>
+
 <!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <title>Dashboard Penyewa</title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f8f9fa;
-    }
-    .navbar-brand {
-      font-weight: 600;
-    }
-    .card img {
-      height: 180px;
-      object-fit: cover;
-    }
-    .btn-wa {
-      background-color: #25D366;
-      color: white;
-    }
-    .btn-wa:hover {
-      background-color: #1ebe5a;
-      color: white;
-    }
-    .btn-catat {
-      background-color: #2196F3;
-      color: white;
-    }
-    .btn-catat:hover {
-      background-color: #1976D2;
-      color: white;
-    }
-  </style>
-</head>
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Plot Listing HTML5 Website Template</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../include/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../include/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../include/assets/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="../include/assets/css/animated.css">
+    <link rel="stylesheet" href="../include/assets/css/owl.css">
+<!--
+
+TemplateMo 564 Plot Listing
+
+https://templatemo.com/tm-564-plot-listing
+
+-->
+  </head>
+
 <body>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand" href="dashboard.php">🏠 Beranda</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="../transaksi/transaksi_penyewa.php">🧾 Transaksi Saya</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-danger" href="../logout.php">🚪 Logout</a>
-        </li>
-      </ul>
+  <!-- ***** Preloader Start ***** -->
+  <div id="js-preloader" class="js-preloader">
+    <div class="preloader-inner">
+      <span class="dot"></span>
+      <div class="dots">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
   </div>
-</nav>
+  <!-- ***** Preloader End ***** -->
 
-<!-- Konten -->
-<div class="container mt-5 pt-4">
-  <h2 class="mb-4 text-center">Daftar Barang Tersedia</h2>
+  <!-- ***** Header Area Start ***** -->
+  <?php include 'navbar.php'; ?>
+  <!-- ***** Header Area End ***** -->
 
-  <div class="row g-4">
-    <?php while ($row = mysqli_fetch_assoc($result)): ?>
-      <div class="col-md-4 col-sm-6">
-        <div class="card h-100 shadow-sm">
-          <img src="../uploads/<?= $row['foto'] ?: 'default.png' ?>" 
-              class="card-img-top" 
-              alt="<?= htmlspecialchars($row['nama_barang']) ?>">
-          <div class="card-body">
-            <h5 class="card-title"><?= htmlspecialchars($row['nama_barang']) ?></h5>
-            <p class="card-text mb-1"><strong>Harga Sewa:</strong> Rp<?= number_format($row['harga_sewa'], 0, ',', '.') ?>/hari</p>
-            <p class="card-text mb-1"><strong>Pemilik:</strong> <?= htmlspecialchars($row['pemilik']) ?></p>
-            <p class="card-text mb-1"><strong>Telepon:</strong> <?= htmlspecialchars($row['telepon']) ?></p>
-            <p class="card-text text-muted mb-3">
-              <?= nl2br(htmlspecialchars($row['deskripsi'])) ?: '<em>Tidak ada deskripsi</em>' ?>
-            </p>
-            <div class="d-grid gap-2">
-              <a class="btn btn-success" target="_blank"
-                href="https://wa.me/62<?= preg_replace('/\D/', '', $row['telepon']) ?>?text=Halo%20saya%20tertarik%20menyewa%20barang%20Anda%20yang%20bernama%20<?= urlencode($row['nama_barang']) ?>">
-                Hubungi via WhatsApp
-              </a>
-              <a class="btn btn-primary" href="../transaksi/buat_transaksi.php?id=<?= $row['id'] ?>">
-                Catat Transaksi
-              </a>
+  <div class="main-banner">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="top-text header-text">
+            <h6>Over 36,500+ Active Listings</h6>
+            <h2>Find Nearby Places &amp; Things</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="popular-categories">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Popular Categories</h2>
+            <h6>Check Them Out</h6>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="naccs">
+            <div class="grid">
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="menu">
+                    <div class="">
+                      <div class="thumb" class="active">
+                        <span class="icon"><img src="assets/images/search-icon-03.png" alt=""></span>
+                        Kendaraan
+                      </div>
+                    </div>
+                    <div>
+                      <div class="thumb">                 
+                        <span class="icon"><img src="assets/images/search-icon-04.png" alt=""></span>
+                        Elektronik
+                      </div>
+                    </div>
+                    <div class="last-thumb">
+                      <div class="thumb">                 
+                        <span class="icon"><img src="assets/images/search-icon-0.png" alt=""></span>
+                        Lainnya
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+                <div class="col-lg-9 align-self-center">
+                  <ul class="nacc">
+                    <li class="active">
+                      <div>
+                        <div class="thumb">
+                          <div class="row">
+                            <div class="col-lg-5 align-self-center">
+                              <div class="left-text">
+                                <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium non molestiae exercitationem dolore a illum ut odio, nesciunt quasi recusandae nobis blanditiis veniam laborum asperiores ipsa sapiente suscipit. Possimus, repellat?</p>
+                                <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Discover More</a></div>
+                              </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                              <div class="right-image">
+                                <img src="assets/images/tabs-image-01.jpg" alt="">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <div class="thumb">
+                          <div class="row">
+                            <div class="col-lg-5 align-self-center">
+                              <div class="left-text">
+                                <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium non molestiae exercitationem dolore a illum ut odio, nesciunt quasi recusandae nobis blanditiis veniam laborum asperiores ipsa sapiente suscipit. Possimus, repellat?</p>                                
+                                <div class="main-white-button"><a href="#"><i class="fa fa-eye"></i> Explore More</a></div>
+                              </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                              <div class="right-image">
+                                <img src="assets/images/tabs-image-02.jpg" alt="Foods on the table">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                    <li>
+                      <div>
+                        <div class="thumb">
+                          <div class="row">
+                            <div class="col-lg-5 align-self-center">
+                              <div class="left-text">
+                                <h4>Lorem ipsum dolor, sit amet consectetur adipisicing elit.</h4>
+                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium non molestiae exercitationem dolore a illum ut odio, nesciunt quasi recusandae nobis blanditiis veniam laborum asperiores ipsa sapiente suscipit. Possimus, repellat?</p>                                
+                                <div class="main-white-button"><a href="listing.php"><i class="fa fa-eye"></i> More Listing</a></div>
+                              </div>
+                            </div>
+                            <div class="col-lg-7 align-self-center">
+                              <div class="right-image">
+                                <img src="assets/images/tabs-image-03.jpg" alt="cars in the city">
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </li>
+                  </ul>
+                </div>          
+              </div>
             </div>
           </div>
         </div>
       </div>
-    <?php endwhile; ?>
+    </div>
   </div>
-</div>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <div class="recent-listing">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="section-heading">
+            <h2>Recent Listing</h2>
+            <h6>Check Them Out</h6>
+          </div>
+        </div>
+        <div class="col-lg-12">
+          <div class="owl-carousel owl-listing">
+            <?php while ($data = mysqli_fetch_assoc($query)) { ?>
+            <div class="item">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div class="listing-item">
+                    <div class="left-image">
+                      <a href="#">
+                        <img src="../uploads/<?php echo htmlspecialchars($data['foto']); ?>" 
+                            alt="<?php echo htmlspecialchars($data['nama_barang']); ?>" 
+                            style="height: 350px; object-fit: cover; border-radius: 10px;">
+                      </a>
+                    </div>
+                    <div class="right-content align-self-center">
+                      <a href="#"><h4><?php echo htmlspecialchars($data['nama_barang']); ?></h4></a>
+                      <h6>Kategori: <?php echo htmlspecialchars($data['kategori']); ?></h6>
+                      <p><?php echo nl2br(htmlspecialchars($data['deskripsi'])); ?></p>
+                      <span class="price">
+                        <div class="icon">
+                          <img src="assets/images/listing-icon-01.png" alt="">
+                        </div>
+                        Rp<?php echo number_format($data['harga_sewa'], 0, ',', '.'); ?> / hari
+                      </span>
+                      <span class="details">
+                        Status: 
+                        <em style="color: <?php echo ($data['status'] == 'tersedia') ? 'green' : 'red'; ?>;">
+                          <?php echo ucfirst($data['status']); ?>
+                        </em>
+                      </span>
+                      <div class="main-white-button mt-3">
+                        <a href="detail_barang.php?id=<?php echo $data['id']; ?>">
+                          <i class="fa fa-eye"></i> Lihat Detail
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <?php } ?>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <?= include 'footer.php'; ?>
+
+  <!-- Scripts -->
+  <script src="../include/vendor/jquery/jquery.min.js"></script>
+  <script src="../include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../include/assets/js/owl-carousel.js"></script>
+  <script src="../include/assets/js/animation.js"></script>
+  <script src="../include/assets/js/imagesloaded.js"></script>
+  <script src="../include/assets/js/custom.js"></script>
+
 </body>
+
 </html>
