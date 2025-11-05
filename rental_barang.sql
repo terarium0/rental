@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Oct 26, 2025 at 09:15 AM
+-- Generation Time: Nov 05, 2025 at 03:37 AM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -43,9 +43,45 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `id_perental`, `nama_barang`, `kategori`, `deskripsi`, `harga_sewa`, `foto`, `status`) VALUES
-(4, 2, 'Kamera Canon EOS 700D', 'Elektronik', 'Kamera DSLR lengkap dengan lensa kit', 150000, '1761199520_240.jpg', 'tersedia'),
-(5, 2, 'Laptop ASUS VivoBook 17', 'Elektronik', 'Laptop Core i5 dengan RAM 8GB', 300000, '1761468812_113.png', 'tidak tersedia'),
-(7, 4, 'qwert', '1234', '5678', 900000, '1761468947_947.png', 'tersedia');
+(4, 2, 'Kamera Canon EOS 700D', 'Elektronik', 'Kamera DSLR lengkap dengan lensa kit', 123456, '1761199520_240.jpg', 'tersedia'),
+(5, 2, 'Laptop ASUS VivoBook 17', 'Elektronik', 'Laptop Core i5 dengan RAM 8GB', 300000, '1761468812_113.png', 'tersedia'),
+(7, 4, 'qwert', '1234', '5678', 900000, '1761468947_947.png', 'tersedia'),
+(8, 4, 'sasasas', 'Kendaraan', 'qwqwwqw', 123456, '1761468325_462.png', 'tersedia');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `pembayaran`
+--
+
+CREATE TABLE `pembayaran` (
+  `id` int NOT NULL,
+  `id_sewa` int NOT NULL,
+  `metode` enum('transfer') DEFAULT 'transfer',
+  `bukti_transfer` varchar(255) DEFAULT NULL,
+  `tanggal_bayar` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` enum('Menunggu Verifikasi','Lunas','Ditolak') DEFAULT 'Menunggu Verifikasi'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rekening_admin`
+--
+
+CREATE TABLE `rekening_admin` (
+  `id` int NOT NULL,
+  `nama_bank` varchar(50) DEFAULT NULL,
+  `no_rekening` varchar(50) DEFAULT NULL,
+  `atas_nama` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `rekening_admin`
+--
+
+INSERT INTO `rekening_admin` (`id`, `nama_bank`, `no_rekening`, `atas_nama`) VALUES
+(1, 'BCA', '1234567890', 'PT Rental Barang Sejahtera');
 
 -- --------------------------------------------------------
 
@@ -60,9 +96,17 @@ CREATE TABLE `sewa` (
   `tanggal_mulai` date NOT NULL,
   `tanggal_selesai` date NOT NULL,
   `total_harga` decimal(10,2) NOT NULL,
-  `status` enum('menunggu','disetujui','ditolak','selesai') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT 'menunggu',
+  `status` enum('Menunggu Pembayaran','Menunggu Verifikasi','Lunas','Ditolak','Selesai') DEFAULT 'Menunggu Pembayaran',
   `tanggal_pesan` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `sewa`
+--
+
+INSERT INTO `sewa` (`id`, `id_barang`, `id_penyewa`, `tanggal_mulai`, `tanggal_selesai`, `total_harga`, `status`, `tanggal_pesan`) VALUES
+(7, 7, 3, '2025-11-04', '2025-11-05', 900000.00, 'Menunggu Pembayaran', '2025-11-04 05:05:16'),
+(8, 4, 3, '2025-11-04', '2025-11-05', 123456.00, 'Menunggu Pembayaran', '2025-11-04 05:14:47');
 
 -- --------------------------------------------------------
 
@@ -102,6 +146,19 @@ ALTER TABLE `barang`
   ADD KEY `id_perental` (`id_perental`);
 
 --
+-- Indexes for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_sewa` (`id_sewa`);
+
+--
+-- Indexes for table `rekening_admin`
+--
+ALTER TABLE `rekening_admin`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `sewa`
 --
 ALTER TABLE `sewa`
@@ -124,13 +181,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `barang`
 --
 ALTER TABLE `barang`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `rekening_admin`
+--
+ALTER TABLE `rekening_admin`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `sewa`
 --
 ALTER TABLE `sewa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -147,6 +216,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `barang`
   ADD CONSTRAINT `barang_ibfk_1` FOREIGN KEY (`id_perental`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `pembayaran`
+--
+ALTER TABLE `pembayaran`
+  ADD CONSTRAINT `pembayaran_ibfk_1` FOREIGN KEY (`id_sewa`) REFERENCES `sewa` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `sewa`
