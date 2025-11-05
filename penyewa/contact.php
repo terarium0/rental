@@ -14,14 +14,14 @@
     <title>Plotlist - Listing HTML5 Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../include/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-plot-listing.css">
-    <link rel="stylesheet" href="assets/css/animated.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="../include/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../include/assets/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="../include/assets/css/animated.css">
+    <link rel="stylesheet" href="../include/assets/css/owl.css">
 <!--
 
 TemplateMo 564 Plot Listing
@@ -207,12 +207,12 @@ https://templatemo.com/tm-564-plot-listing
 
 
   <!-- Scripts -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/animation.js"></script>
-  <script src="assets/js/imagesloaded.js"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="../include/vendor/jquery/jquery.min.js"></script>
+  <script src="../include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../include/assets/js/owl-carousel.js"></script>
+  <script src="../include/assets/js/animation.js"></script>
+  <script src="../include/assets/js/imagesloaded.js"></script>
+  <script src="../include/assets/js/custom.js"></script>
 
 </body>
 
