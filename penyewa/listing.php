@@ -87,19 +87,19 @@ https://templatemo.com/tm-564-plot-listing
                 <div class="menu">
                   <div class="first-thumb active">
                     <div class="thumb">
-                      <span class="icon"><img src="assets/images/search-icon-01.png" alt=""></span>
+                      <span class="icon"><img src="../include/assets/images/search-icon-03.png" alt=""></span>
                       Kendaraan
                     </div>
                   </div>
                   <div>
                     <div class="thumb">                 
-                      <span class="icon"><img src="assets/images/search-icon-02.png" alt=""></span>
+                      <span class="icon"><img src="../include/assets/images/search-icon-04.png" alt=""></span>
                       Elektronik
                     </div>
                   </div>
                   <div class="last-thumb">
                     <div class="thumb">                 
-                      <span class="icon"><img src="assets/images/search-icon-03.png" alt=""></span>
+                      <span class="icon"><img src="../include/assets/images/search-icon-05.png" alt=""></span>
                       Lainnya
                     </div>
                   </div>
@@ -184,7 +184,7 @@ https://templatemo.com/tm-564-plot-listing
                               <?php
                               $fotoPath = "../uploads/" . htmlspecialchars($data['foto']);
                               if (!file_exists($fotoPath) || empty($data['foto'])) {
-                                $fotoPath = "assets/images/no-image.png";
+                                $fotoPath = "../include/assets/images/no-image.png";
                               }
                               ?>
                               <a href="detail_barang.php?id=<?php echo $data['id']; ?>">
@@ -311,12 +311,12 @@ https://templatemo.com/tm-564-plot-listing
   <?= include 'footer.php'; ?>
 
   <!-- Scripts -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/js/owl-carousel.js"></script>
-  <script src="assets/js/animation.js"></script>
-  <script src="assets/js/imagesloaded.js"></script>
-  <script src="assets/js/custom.js"></script>
+  <script src="../include/vendor/jquery/jquery.min.js"></script>
+  <script src="../include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../include/assets/js/owl-carousel.js"></script>
+  <script src="../include/assets/js/animation.js"></script>
+  <script src="../include/assets/js/imagesloaded.js"></script>
+  <script src="../include/assets/js/custom.js"></script>
 
 </body>
 

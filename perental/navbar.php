@@ -36,15 +36,15 @@ https://templatemo.com/tm-564-plot-listing
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="dashboard.php" class="logo">
+            <a href="index.html" class="logo">
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
               <li><a href="dashboard.php">Home</a></li>
-              <li><a href="listing.php">Listing</a></li>
-              <li><a href="../transaksi/transaksi_penyewa.php">History</a></li>
-              <li><a href="contact.php">Contact Us</a></li> 
+              <li><a href="data_barang.php">Data Barang</a></li>
+              <li><a href="../transaksi/transaksi_perental.php">Sewa</a></li>
+              <li><a href="tambah_barang.php">Tambah Barang</a></li> 
               <li><div class="main-white-button"><a href="../logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a></div></li> 
             </ul>        
             <a class='menu-trigger'>

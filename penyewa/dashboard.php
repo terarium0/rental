@@ -89,19 +89,19 @@ https://templatemo.com/tm-564-plot-listing
                   <div class="menu">
                     <div class="">
                       <div class="thumb" class="active">
-                        <span class="icon"><img src="assets/images/search-icon-03.png" alt=""></span>
+                        <span class="icon"><img src="../include/assets/images/search-icon-03.png" alt=""></span>
                         Kendaraan
                       </div>
                     </div>
                     <div>
                       <div class="thumb">                 
-                        <span class="icon"><img src="assets/images/search-icon-04.png" alt=""></span>
+                        <span class="icon"><img src="../include/assets/images/search-icon-04.png" alt=""></span>
                         Elektronik
                       </div>
                     </div>
                     <div class="last-thumb">
                       <div class="thumb">                 
-                        <span class="icon"><img src="assets/images/search-icon-0.png" alt=""></span>
+                        <span class="icon"><img src="../include/assets/images/search-icon-05.png" alt=""></span>
                         Lainnya
                       </div>
                     </div>
@@ -122,7 +122,7 @@ https://templatemo.com/tm-564-plot-listing
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="assets/images/tabs-image-01.jpg" alt="">
+                                <img src="../include/assets/images/tabs-image-01.jpg" alt="">
                               </div>
                             </div>
                           </div>
@@ -142,7 +142,7 @@ https://templatemo.com/tm-564-plot-listing
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="assets/images/tabs-image-02.jpg" alt="Foods on the table">
+                                <img src="../include/assets/images/tabs-image-02.jpg" alt="Foods on the table">
                               </div>
                             </div>
                           </div>
@@ -162,7 +162,7 @@ https://templatemo.com/tm-564-plot-listing
                             </div>
                             <div class="col-lg-7 align-self-center">
                               <div class="right-image">
-                                <img src="assets/images/tabs-image-03.jpg" alt="cars in the city">
+                                <img src="../include/assets/images/tabs-image-03.jpg" alt="cars in the city">
                               </div>
                             </div>
                           </div>
@@ -209,7 +209,7 @@ https://templatemo.com/tm-564-plot-listing
                       <p><?php echo nl2br(htmlspecialchars($data['deskripsi'])); ?></p>
                       <span class="price">
                         <div class="icon">
-                          <img src="assets/images/listing-icon-01.png" alt="">
+                          <img src="../include/assets/images/listing-icon-01.png" alt="">
                         </div>
                         Rp<?php echo number_format($data['harga_sewa'], 0, ',', '.'); ?> / hari
                       </span>

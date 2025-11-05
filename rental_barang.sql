@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 05, 2025 at 03:37 AM
+-- Generation Time: Nov 05, 2025 at 01:51 PM
 -- Server version: 8.4.3
 -- PHP Version: 8.3.16
 
@@ -43,10 +43,9 @@ CREATE TABLE `barang` (
 --
 
 INSERT INTO `barang` (`id`, `id_perental`, `nama_barang`, `kategori`, `deskripsi`, `harga_sewa`, `foto`, `status`) VALUES
-(4, 2, 'Kamera Canon EOS 700D', 'Elektronik', 'Kamera DSLR lengkap dengan lensa kit', 123456, '1761199520_240.jpg', 'tersedia'),
+(4, 2, 'Kamera Canon EOS 700D', 'Elektronik', 'Kamera DSLR lengkap dengan lensa kit', 98765, '1761199520_240.jpg', 'tersedia'),
 (5, 2, 'Laptop ASUS VivoBook 17', 'Elektronik', 'Laptop Core i5 dengan RAM 8GB', 300000, '1761468812_113.png', 'tersedia'),
-(7, 4, 'qwert', '1234', '5678', 900000, '1761468947_947.png', 'tersedia'),
-(8, 4, 'sasasas', 'Kendaraan', 'qwqwwqw', 123456, '1761468325_462.png', 'tersedia');
+(7, 4, 'qwert', '1234', '5678', 900000, '1761468947_947.png', 'tersedia');
 
 -- --------------------------------------------------------
 
@@ -62,6 +61,14 @@ CREATE TABLE `pembayaran` (
   `tanggal_bayar` datetime DEFAULT CURRENT_TIMESTAMP,
   `status` enum('Menunggu Verifikasi','Lunas','Ditolak') DEFAULT 'Menunggu Verifikasi'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Dumping data for table `pembayaran`
+--
+
+INSERT INTO `pembayaran` (`id`, `id_sewa`, `metode`, `bukti_transfer`, `tanggal_bayar`, `status`) VALUES
+(1, 8, 'transfer', '1762314264_631.png', '2025-11-05 10:44:24', 'Menunggu Verifikasi'),
+(3, 9, 'transfer', '1762350523_963.png', '2025-11-05 20:48:43', 'Menunggu Verifikasi');
 
 -- --------------------------------------------------------
 
@@ -106,7 +113,8 @@ CREATE TABLE `sewa` (
 
 INSERT INTO `sewa` (`id`, `id_barang`, `id_penyewa`, `tanggal_mulai`, `tanggal_selesai`, `total_harga`, `status`, `tanggal_pesan`) VALUES
 (7, 7, 3, '2025-11-04', '2025-11-05', 900000.00, 'Menunggu Pembayaran', '2025-11-04 05:05:16'),
-(8, 4, 3, '2025-11-04', '2025-11-05', 123456.00, 'Menunggu Pembayaran', '2025-11-04 05:14:47');
+(8, 4, 3, '2025-11-04', '2025-11-05', 123456.00, 'Lunas', '2025-11-04 05:14:47'),
+(9, 5, 5, '2025-11-08', '2025-11-09', 300000.00, 'Ditolak', '2025-11-05 13:48:24');
 
 -- --------------------------------------------------------
 
@@ -187,7 +195,7 @@ ALTER TABLE `barang`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `rekening_admin`
@@ -199,7 +207,7 @@ ALTER TABLE `rekening_admin`
 -- AUTO_INCREMENT for table `sewa`
 --
 ALTER TABLE `sewa`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`

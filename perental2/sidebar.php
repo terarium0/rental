@@ -8,7 +8,6 @@ if (!isset($_SESSION)) {
 <h4 class="text-center mb-4">Menu</h4>
   <a href="dashboard.php">🏠 Dashboard</a>
   <a href="data_barang.php">📦 Data Barang</a>
-  <a href="../transaksi/transaksi_perental.php">📦 Sewa</a>
   <a href="tambah_barang2.php">➕ Tambah Barang</a>
   <a href="../logout.php" class="text-danger">🚪 Logout</a>
 </div>

@@ -16,43 +16,68 @@ $barang = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id'");
 <meta charset="UTF-8">
 <title>Data Barang</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
-  body { background:#f4f6f9 }
-  .sidebar {
-    width: 220px;
-    min-height: 100vh;
-    background: #2c3e50;
-    color: white;
-    position: fixed;
-    left: 0;
-    top: 0;
-    padding: 20px 0;
-  }
-  .sidebar a {
-    display: block;
-    padding: 12px 20px;
-    text-decoration: none;
-    color: white;
-    font-size: 15px;
-  }
-  .sidebar a:hover { background: #34495e }
-  .content { margin-left: 240px; padding: 20px }
-  .card-img-top { height: 150px; object-fit: cover }
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="../include/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../include/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../include/assets/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="../include/assets/css/animated.css">
+    <link rel="stylesheet" href="../include/assets/css/owl.css">
 </head>
 <body>
 
-<div class="sidebar">
-  <h4 class="text-center mb-4">Menu</h4>
-  <a href="dashboard.php">🏠 Dashboard</a>
-  <a href="data_barang.php">📦 Data Barang</a>
-  <a href="tambah_barang2.php">➕ Tambah Barang</a>
-  <a href="../logout.php" class="text-danger">🚪 Logout</a>
-</div>
+<?php include 'navbar.php'; ?>
+<style>
+  .page-heading {
+    padding: 8rem 0 20px 0; /* kurangi tinggi atas-bawah */
+    background-color: #00000;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .page-heading .breadcrumb {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .page-heading .breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .page-heading h3 {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #f8f9fa;
+  }
+  .content { margin-left: 240px; padding: 20px }
+  .card-img-top { height: 150px; object-fit: cover }
+</style>
+ <div class="page-heading header-text">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+          <span class="breadcrumb">
+          </span>
+          <h3>Data Barang</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <div class="content">
-  <h3 class="fw-bold mb-4">Data Barang Anda</h3>
-
+<br>
   <div class="row g-3">
     <?php while($row = mysqli_fetch_assoc($barang)): ?>
       <div class="col-md-4">
@@ -87,6 +112,13 @@ $barang = mysqli_query($conn, "SELECT * FROM barang WHERE id_perental='$id'");
     <?php endwhile; ?>
   </div>
 </div>
+ <!-- Scripts -->
+  <script src="../include/vendor/jquery/jquery.min.js"></script>
+  <script src="../include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../include/assets/js/owl-carousel.js"></script>
+  <script src="../include/assets/js/animation.js"></script>
+  <script src="../include/assets/js/imagesloaded.js"></script>
+  <script src="../include/assets/js/custom.js"></script>
 
 </body>
 </html>

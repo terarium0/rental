@@ -37,7 +37,22 @@ $data = mysqli_fetch_assoc($result);
 <meta charset="UTF-8">
 <title>Detail Barang</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
+
+    <!-- Bootstrap core CSS -->
+    <link href="../include/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="../include/assets/css/fontawesome.css">
+    <link rel="stylesheet" href="../include/assets/css/templatemo-plot-listing.css">
+    <link rel="stylesheet" href="../include/assets/css/animated.css">
+    <link rel="stylesheet" href="../include/assets/css/owl.css">
 <style>
     .container-detail { margin-left:260px; }
     .thumb-img { width:70px; height:70px; object-fit:cover; cursor:pointer; border-radius:6px; }
@@ -52,11 +67,46 @@ function changeImage(src){
 </script>
 </head>
 <body>
+<?php include 'navbar.php'; ?>
+<style>
+  .page-heading {
+    padding: 8rem 0 20px 0; /* kurangi tinggi atas-bawah */
+    background-color: #00000;
+    text-align: center;
+    margin-bottom: 40px;
+  }
 
-<?php include 'sidebar.php'; ?>
+  .page-heading .breadcrumb {
+    font-size: 0.9rem;
+    color: #6c757d;
+  }
+
+  .page-heading .breadcrumb a {
+    text-decoration: none;
+    color: #007bff;
+  }
+
+  .page-heading h3 {
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 1.8rem;
+    color: #f8f9fa;
+  }
+</style>
+ <div class="page-heading header-text">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 text-center">
+          <span class="breadcrumb">
+          </span>
+          <h3>Detail Barang</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 <div class="container-detail p-4">
-    <h4 class="fw-bold mb-3">Detail Barang</h4>
 
     <div class="row g-4">
         
@@ -90,7 +140,7 @@ function changeImage(src){
             </p>
 
             <div class="mt-4 d-flex gap-2">
-                <a href="edit_barang1.php?id=<?= $id_barang ?>" class="btn btn-warning">Edit</a>
+                <a href="edit_barang.php?id=<?= $id_barang ?>" class="btn btn-warning">Edit</a>
                 <a href="hapus_barang.php?id=<?= $id_barang ?>" class="btn btn-danger" onclick="return confirm('Hapus barang?')">Hapus</a>
 
                 <?php if ($data['status'] == 'tersedia') { ?>
@@ -107,6 +157,12 @@ function changeImage(src){
 
     </div>
 </div>
-
+ <!-- Scripts -->
+  <script src="../include/vendor/jquery/jquery.min.js"></script>
+  <script src="../include/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../include/assets/js/owl-carousel.js"></script>
+  <script src="../include/assets/js/animation.js"></script>
+  <script src="../include/assets/js/imagesloaded.js"></script>
+  <script src="../include/assets/js/custom.js"></script>
 </body>
 </html>
