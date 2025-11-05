@@ -51,7 +51,7 @@ if (isset($_POST['upload'])) {
       // Update status transaksi
       mysqli_query($conn, "UPDATE sewa SET status = 'Menunggu Verifikasi' WHERE id = '$id_sewa'");
 
-      echo "<script>alert('Bukti pembayaran berhasil dikirim!');window.location='riwayat_sewa.php';</script>";
+      echo "<script>alert('Bukti pembayaran berhasil dikirim!');window.location='transaksi_penyewa.php';</script>";
       exit;
     } else {
       echo "<script>alert('Format file tidak valid!');</script>";
